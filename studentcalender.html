@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Calendar Dashboard</title>
+    <link rel="stylesheet" href="calender.css">
+    <script src="calender.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="user.png" alt="Profile Picture">
+                <h3>Shruti Keshri</h3>
+                <p>230862</p>
+            </div>
+            <a href="student.html"><div class="nav-item">🏠 Dashboard</div></a>
+            <a href="course.html"><div class="nav-item">📚 Courses</div></a>
+            <a href="assignment.html"><div class="nav-item">📝 Assignments</div></a>
+            <a href="studentcalender.html"><div class="nav-item">📅 Calendar</div></a>
+            <a href="stream.html"><div class="nav-item">💬 Stream</div></a>
+            <a href="help.html"><div class="nav-item">❓ Help</div></a>
+            <a href="login.html"><div class="nav-item" style="color: red;">Logout</div></a>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>📅 Calendar</h1>
+                <input type="month" id="calendar-month">
+            </header>
+
+            <!-- Dashboard Section -->
+            <div class="dashboard">
+                <div class="progress-card">
+                    <h3>📊 Task Progress</h3>
+                    <p>Completed: <span id="completed-tasks">5</span> / 10</p>
+                    <div class="progress-bar">
+                        <div id="task-progress"></div>
+                    </div>
+                </div>
+
+                <div class="attendance-card">
+                    <h3>🎓 Attendance</h3>
+                    <p>Attendance: <span id="attendance-percent">85%</span></p>
+                    <div class="progress-bar">
+                        <div id="attendance-progress"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="calendar">
+                <div id="calendar-grid"></div>
+            </div>
+
+            <!-- Event Details -->
+            <div class="details">
+                <h2>📌 Selected Date Details</h2>
+                <div id="event-details">
+                    <p>Select a date to view details.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

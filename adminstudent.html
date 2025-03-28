@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            text-align: center;
+        }
+        .container { width: 50%; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; display: block; }
+
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar img {
+            width: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .sidebar h3 {
+            margin-top: 10px;
+        }
+        .nav-item {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            background: #34495e;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .nav-item:hover {
+            background: #1abc9c;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            /* background: #fffaf0; */
+            background: #f4f6f9;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        button {
+            background:#2c3e50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 10%;
+        }
+        button:hover {
+            background: #1abc9c;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px; /* Adjust based on your layout */
+            margin: auto;
+        }
+        .card {
+            flex: 1;
+            width: 55%; /* Adjust width for 2 cards per row */
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h3 {
+            margin-bottom: 10px;
+        }
+        .icon {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    </style>
+    <body>
+    <div class="sidebar">
+        <img src="user.jpg" alt="User">
+        <h3>Admin</h3>
+        <div class="nav-item" onclick="switchPage('admin')" ><a href="admin.html" style="text-decoration: none; color: white">Dashboard</a></div>
+        <div class="nav-item" onclick="switchPage('teachers')" ><a href="adminteacher.html" style="text-decoration: none; color: white">Teachers</a></div>
+        <div class="nav-item" onclick="switchPage('students')"><a href="adminstudent.html" style="text-decoration: none; color: white">Students</a></div>
+        <div class="nav-item" onclick="switchPage('attendance')"><a href="adminattendance.html" style="text-decoration: none; color: white">Attendance</a></div>
+        <div class="nav-item" onclick="switchPage('fee')"><a href="adminfees.html" style="text-decoration: none; color: white">Fee</a></div>
+        <div class="nav-item" onclick="switchPage('calendar')"><a href="admincalender.html" style="text-decoration: none; color: white">Calendar</a></div>
+        <div class="nav-item" onclick="switchPage('notice')" ><a href="adminnotice.html" style="text-decoration: none; color: white">Notice</a></div>
+    </div>
+    
+    <div id="teacherDashboard" class="content active">
+        <!-- <h2>Teacher Dashboard</h2> -->
+        
+        <div class="cards">
+            <div class="card" style="background: #d9eaff;">
+                <!-- <h3>Total Teachers</h3> -->
+                <button onclick="showPage('viewTeachers')">View All Students</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #d4fcd4;">
+                <!-- <h3>Total Students</h3> -->
+                <button onclick="showPage('addTeacher')">Add Student</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #f9ffcc;">
+                <!-- <h3>Fee / Salary</h3> -->
+                 <button onclick="showPage('approveTeacher')">Results</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #ffcce6;">
+                <!-- <h3>Fee / Salary</h3> -->
+                 <button onclick="showPage('viewSalary')">View Student Fee</button>
+                <div class="icon">&#8377;</div>
+            </div>
+        </div>  
+    </div>
+
+    <div id="viewTeachers" class="content">
+        <h2>View Students</h2>
+        <table>
+            <tr>
+                <th>ID</th><th>Name</th><th>Mobile</th><th>Course</th><th>Batch</th><th>Grade</th><th>Fee</th>
+            </tr>
+            <tr>
+                <td>1</td><td>John Doe</td><td>9876543210</td><td>Computer Science</td><td>2024</td><td>A</td><td>$1000</td>
+            </tr>
+            <tr>
+                <td>2</td><td>Jane Smith</td><td>9876543221</td><td>Mathematics</td><td>2023</td><td>B</td><td>$900</td>
+            </tr>
+        </table>
+        <br><br>
+        <button  onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    
+    <div id="addTeacher" class="content">
+        <div class="container">
+            <h2>Add New Student</h2>
+            <input type="text" placeholder="First Name">
+            <input type="text" placeholder="Last Name">
+            <input type="text" placeholder="User ID">
+            <input type="password" placeholder="Password">
+            <input type="text" placeholder="Mobile">
+            <input type="text" placeholder="Course">
+            <button>Add Student</button>
+        </div>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    <div id="approveTeacher" class="content">
+        <h2>Student Result</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Grade</th>
+            </tr>
+            <tr>
+                <td>101</td>
+                <td>John Doe</td>
+                <td>A</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>Jane Smith</td>
+                <td>B+</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>Michael Brown</td>
+                <td>A-</td>
+            </tr>
+        </table>
+        <br><br>
+        <button class="generate-btn" onclick="generateReport()">Generate Report</button>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    
+    <div id="viewSalary" class="content">
+        <h2>Student Fee</h2>
+        <br><br>
+        <table>
+            <tr>
+                <th>ID</th><th>Name</th><th>Fee Detail</th>
+            </tr>
+            <tr>
+                <td>1</td><td>John Doe</td><td>Paid</td>
+            </tr>
+            <tr>
+                <td>2</td><td>Jane Smith</td><td>Pending</td>
+            </tr>
+        </table>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')" >Return</button>
+    </div>
+    
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        function generateReport() {
+        alert("Student report generated successfully!");
+    }
+        let teacherCount = 0;
+        function addTeacher() {
+            teacherCount++;
+            const table = document.getElementById("teacherTable");
+            const row = table.insertRow(-1);
+            row.innerHTML = `
+                <td>${teacherCount}</td>
+                <td>${document.getElementById("firstName").value} ${document.getElementById("lastName").value}</td>
+                <td>${document.getElementById("mobile").value}</td>
+                <td>${document.getElementById("salary").value}</td>
+                <td>${new Date().toLocaleDateString()}</td>
+                <td>Course A</td>
+            `;
+            alert("Teacher Hired Successfully!");
+        }
+    </script>
+</body>
+</html>

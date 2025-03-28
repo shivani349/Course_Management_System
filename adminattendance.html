@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Attendance</title>
+    <style>
+       body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar img {
+            width: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .sidebar h3 {
+            margin-top: 10px;
+        }
+        .nav-item {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            background: #34495e;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .nav-item:hover {
+            background: #1abc9c;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            /* background: #fffaf0; */
+            background: #f4f6f9;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="user.jpg" alt="User">
+        <h3>Admin</h3>
+        <div class="nav-item" onclick="switchPage('admin')" ><a href="admin.html" style="text-decoration: none; color: white">Dashboard</a></div>
+        <div class="nav-item" onclick="switchPage('teachers')" ><a href="adminteacher.html" style="text-decoration: none; color: white">Teachers</a></div>
+        <div class="nav-item" onclick="switchPage('students')"><a href="adminstudent.html" style="text-decoration: none; color: white">Students</a></div>
+        <div class="nav-item" onclick="switchPage('attendance')"><a href="adminattendance.html" style="text-decoration: none; color: white">Attendance</a></div>
+        <div class="nav-item" onclick="switchPage('fee')"><a href="adminfees.html" style="text-decoration: none; color: white">Fee</a></div>
+        <div class="nav-item" onclick="switchPage('calendar')"><a href="admincalender.html" style="text-decoration: none; color: white">Calendar</a></div>
+        <div class="nav-item" onclick="switchPage('notice')" ><a href="adminnotice.html" style="text-decoration: none; color: white">Notice</a></div>
+    </div>
+       
+    <div id="attendanceList" class="content active">
+        <h2>Attendance</h2>
+        <table id="attendanceTable">
+            <tr>
+                <th>Section</th>
+                <th>View Attendance</th>
+            </tr>
+            <tr>
+                <td>2021-2023</td>
+                <td><button onclick="viewAttendance('2021-2023')">🔴</button></td>
+            </tr>
+            <tr>
+                <td>2022-2024</td>
+                <td><button onclick="viewAttendance('2022-2024')">🔴</button></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div id="viewAttendance" class="content">
+        <h2>Attendance Details</h2>
+        <label for="date">Select Date:</label>
+        <input type="date" id="date">
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>John Doe</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td><input type="checkbox"></td>
+            </tr>
+        </table>
+        <br><br>
+        <button onclick="saveAttendance()">Save</button>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function viewAttendance(section) {
+            // alert("Viewing attendance for " + section);
+            showPage('viewAttendance');
+        }
+
+        function saveAttendance() {
+            alert("Attendance saved successfully!");
+        }
+    </script>
+</body>
+</html>

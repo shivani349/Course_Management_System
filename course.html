@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            background: #183b66;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar img {
+            width: 80px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .sidebar h3 {
+            text-align: center;
+        }
+        .nav-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ffffff22;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .nav-item:hover {
+            background: #ffffff44;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .topbar input {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .topbar-icons {
+            display: flex;
+            align-items: center;
+        }
+        .topbar-icons img {
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .semester-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .semester-button {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #f1f1f1;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .next-lecture {
+            background: #eef2f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="user.png" alt="User">
+        <h3>Shruti Keshri</h3>
+        <p style='text-align: center'>230862</p>
+        <a href="student.html"><div class="nav-item">🏠 Dashboard</div></a>
+        <a href="course.html"><div class="nav-item">📚 Courses</div></a>
+        <a href="assignment.html"><div class="nav-item">📝 Assignments</div></a>
+        <a href="studentcalender.html"><div class="nav-item">📅 Calendar</div></a>
+        <a href="stream.html"><div class="nav-item">💬 Stream</div></a>
+        <a href="help.html"><div class="nav-item">❓ Help</div></a>
+        <a href="login.html"><div class="nav-item" style="color: red;">Logout</div></div></a>
+    </div>
+
+    <div class="content">
+        <div class="topbar">
+            <input type="text" placeholder="Search">
+            <div class="topbar-icons">
+                <img src="notification.png" alt="Notifications">
+                <img src="profile.png" alt="Profile">
+            </div>
+        </div>
+
+        <div class="semester-container">
+            <button class="semester-button">Semester</button>
+            <button class="semester-button">III - SEM</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>CODE</th>
+                    <th>NAME</th>
+                    <th>SESSIONS</th>
+                    <th>CREDITS</th>
+                    <th>FACULTY</th>
+                </tr>
+                <tr>
+                    <td>CSE2709</td>
+                    <td>Computer Organization & Architecture</td>
+                    <td>50</td>
+                    <td>3.0</td>
+                    <td>Dr. Satyender Singh</td>
+                </tr>
+                <tr>
+                    <td>PSP2709</td>
+                    <td>Design Thinking</td>
+                    <td>60</td>
+                    <td>2.0</td>
+                    <td>Dr. Nirupama M.P</td>
+                </tr>
+                <tr>
+                    <td>CSE2032</td>
+                    <td>Machine Learning</td>
+                    <td>120</td>
+                    <td>2.0</td>
+                    <td>Prof. Anantha Rao</td>
+                </tr>
+                <tr>
+                    <td>CSE3709</td>
+                    <td>Mobile Application Development</td>
+                    <td>40</td>
+                    <td>2.0</td>
+                    <td>Mr. Gautam Gupta</td>
+                </tr>
+                <tr>
+                    <td>CSE3005</td>
+                    <td>Software Engineering</td>
+                    <td>120</td>
+                    <td>3.0</td>
+                    <td>Dr. Nishtha Phutela</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="button">Marks</button>
+            <button class="button">Content</button>
+        </div>
+
+        <div class="next-lecture">
+            <h3>Next Lecture</h3>
+            <p>SE - Module 3</p>
+            <p>1:00 pm - 2:00 pm</p>
+            <p>Dr. Nishtha Phutela</p>
+        </div>
+    </div>
+</body>
+</html>

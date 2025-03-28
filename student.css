@@ -1,0 +1,370 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    background: #f4f6fb;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #1d3557;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: #457b9d;
+}
+
+.nav-item i {
+    margin-right: 10px;
+}
+
+.logout {
+    margin-top: auto;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 280px; /* Push main content away from sidebar */
+    width: calc(100% - 280px);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons i {
+    font-size: 18px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Welcome Section */
+.welcome {
+    margin-bottom: 20px;
+}
+
+.welcome h2 {
+    margin-bottom: 10px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 140px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Classes */
+.classes {
+    margin-bottom: 20px;
+}
+
+.class-list {
+    display: flex;
+    gap: 20px;
+}
+
+.class-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* To-Do List */
+.todo {
+    margin-bottom: 20px;
+}
+
+.todo-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.tags-btn, .filter-btn {
+    background: #457b9d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.add-task {
+    background: #2a9d8f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px 0;
+}
+
+#task-list {
+    list-style: none;
+}
+
+#task-list li {
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.add-subtask {
+    background: #ffb703;
+    border: none;
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.remove-task, .remove-subtask {
+    cursor: pointer;
+    color: red;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.subtask-list {
+    margin-left: 20px;
+    list-style-type: circle;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Calendar */
+.calendar-container {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.calendar-header {
+    margin-bottom: 16px;
+}
+
+.month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.month-year {
+    font-weight: 600;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day-name {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    padding: 8px;
+}
+
+.date-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.date-cell:hover {
+    background-color: #f0f7ff;
+}
+
+.today {
+    background-color: #3a7bfd;
+    color: white;
+}
+
+.other-month {
+    color: #ccc;
+}
+
+/* Events */
+.events-section {
+    margin-top: 24px;
+}
+
+.events-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.event-item {
+    display: flex;
+    background-color: #f5f6fa;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.event-color {
+    width: 8px;
+    border-radius: 4px;
+    margin-right: 16px;
+}
+
+.red { background-color: #ff5a87; }
+.orange { background-color: #ff8d4e; }
+.yellow { background-color: #ffce54; }
+.green { background-color: #4cd964; }
+
+.event-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.event-date, .event-time {
+    display: block;
+    font-size: 13px;
+    color: #666;
+}
+
+.event-time {
+    margin-top: 4px;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
