@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments Dashboard</title>
+    <!-- <link rel="stylesheet" href="index1.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background-color: #1e4a7a;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 3px solid white;
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.nav-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin: 3px 0;
+    border-radius: 0 25px 25px 0;
+}
+
+.nav-item i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.nav-item.active {
+    background-color: white;
+    color: #1e4a7a;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.nav-item:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+    margin-right: 15px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 25px;
+    padding: 8px 15px;
+    margin-right: 20px;
+}
+
+.search-container i {
+    color: #999;
+    margin-right: 10px;
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.top-icons {
+    display: flex;
+    align-items: center;
+}
+
+.top-icons i {
+    font-size: 1.2rem;
+    margin-left: 20px;
+    color: #666;
+    cursor: pointer;
+}
+
+.user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.user-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Content Styles */
+.content {
+    padding: 25px;
+    flex: 1;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.content-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.content-header h1 i {
+    font-size: 1.4rem;
+    margin-left: 10px;
+    color: #666;
+}
+
+.add-new-btn {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.add-new-btn i {
+    margin-left: 8px;
+}
+
+.add-new-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Table Styles */
+.assignments-table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.table-header {
+    display: flex;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+    color: #666;
+}
+
+.table-header .col {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.table-header .col.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 80px;
+}
+
+.table-header .col.filter i {
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.table-row {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.table-row:hover {
+    background-color: #f9f9f9;
+}
+
+.table-row .col {
+    flex: 1;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.table-row .col:first-child {
+    max-width: 80px;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-icon {
+    width: 35px;
+    height: 35px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff9800;
+    cursor: pointer;
+}
+
+.date-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.date {
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.time {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.title-col {
+    font-weight: 500;
+    color: #2196f3;
+}
+
+.attachment-col {
+    color: #4caf50;
+}
+
+.message-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #f0f7ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2196f3;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.delete-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #fff0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Students Section Styles */
+.students-section {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.students-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.students-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.students-search {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 6px 15px;
+    width: 250px;
+}
+
+.students-search i {
+    color: #999;
+    margin-right: 10px;
+    font-size: 0.85rem;
+}
+
+.students-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.students-filter {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 6px 15px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.students-filter i {
+    margin-left: 10px;
+    font-size: 0.7rem;
+    color: #666;
+}
+
+.students-table-header {
+    display: flex;
+    background-color: #f9f9f9;
+    padding: 12px 15px;
+    font-weight: 500;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.st-col {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.st-col.small {
+    flex: 0.5;
+}
+
+.student-row {
+    display: flex;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.student-row:hover {
+    background-color: #f9f9f9;
+}
+
+.student-row .st-col {
+    padding: 0 10px;
+}
+
+.student-row .st-col.small {
+    flex: 0.5;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+}
+
+.student-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.student-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.student-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.action-icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #777;
+}
+
+.action-icon:hover {
+    color: #2196f3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 250px;
+    }
+    
+    .students-search {
+        width: 200px;
+    }
+}
+
+@media (max-width: 992px) {
+    .table-header, .table-row, .students-table-header, .student-row {
+        font-size: 0.85rem;
+    }
+    
+    .students-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .students-search, .students-filter {
+        margin-top: 10px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-img">
+                    <img src="Ai Pictures _ Freepik.jpeg" alt="Profile Image">
+                </div>
+                <h2>Dr.Nishtha Phutela</h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="teacher.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="teachercourse.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="teacherindex1.html" class="nav-item active">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Assignments</span>
+                </a>
+                <a href="teacherattendance.html" class="nav-item">
+                    <i class="fas fa-user-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-money-bill"></i>
+                    <span>Fees</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="top-icons">
+                    <i class="far fa-bell"></i>
+                    <i class="fas fa-comment-dots"></i>
+                    <i class="fas fa-cog"></i>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                    </div>
+                </div>
+            </header>
+            
+            <section class="content">
+                <div class="content-header">
+                    <h1>Assignments <i class="fas fa-pencil-alt"></i></h1>
+                    <button class="add-new-btn">
+                        Add new <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <div class="assignments-table">
+                    <div class="table-header">
+                        <div class="col filter">
+                            <span>11</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="col">Edit</div>
+                        <div class="col">Start Date</div>
+                        <div class="col">Deadline</div>
+                        <div class="col">Title</div>
+                        <div class="col">Attachment</div>
+                        <div class="col">Send Message</div>
+                    </div>
+                    
+                    <div class="table-body" id="assignments-list">
+                        <!-- Assignments will be populated here via JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Students List Section -->
+                <div class="students-section">
+                    <div class="students-header">
+                        <h2>All Students List</h2>
+                        <div class="students-search">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search by name or roll...">
+                        </div>
+                        <div class="students-filter">
+                            <span>All Classes</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="students-table">
+                        <div class="students-table-header">
+                            <div class="st-col small">No</div>
+                            <div class="st-col">Students</div>
+                            <div class="st-col">Roll Num</div>
+                            <div class="st-col">Section</div>
+                            <div class="st-col">Account Type</div>
+                            <div class="st-col">Contact</div>
+                            <div class="st-col small">Rank</div>
+                            <div class="st-col small">Marks</div>
+                            <div class="st-col small">Action</div>
+                        </div>
+                        
+                        <div class="students-table-body" id="students-list">
+                            <!-- Students will be populated here via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Sample data for assignments
+    const assignments = [
+        {
+            id: 1,
+            startDate: '1st of Feb. 2024',
+            startTime: '12:30',
+            deadline: '5th of Feb. 2024',
+            deadlineTime: '17:00',
+            title: 'ADS',
+            attachments: 1,
+            hasAttachment: true
+        },
+        {
+            id: 2,
+            startDate: '1st of Feb. 2024',
+            startTime: '12:30',
+            deadline: '5th of Feb. 2024',
+            deadlineTime: '17:00',
+            title: 'FDS',
+            attachments: 2,
+            hasAttachment: true
+        },
+        {
+            id: 3,
+            startDate: '1st of Feb. 2024',
+            startTime: '12:30',
+            deadline: '5th of Feb. 2024',
+            deadlineTime: '17:00',
+            title: 'SEM/CASE',
+            attachments: 0,
+            hasAttachment: true
+        },
+        {
+            id: 4,
+            startDate: '1st of Feb. 2024',
+            startTime: '12:30',
+            deadline: '5th of Feb. 2024',
+            deadlineTime: '17:00',
+            title: 'MAD',
+            attachments: 6,
+            hasAttachment: true
+        },
+        {
+            id: 5,
+            startDate: '1st of Feb. 2024',
+            startTime: '12:30',
+            deadline: '5th of Feb. 2024',
+            deadlineTime: '17:00',
+            title: 'SE',
+            attachments: 0,
+            hasAttachment: true
+        }
+    ];
+
+    // Sample data for students
+    const students = [
+        {
+            id: 101,
+            name: 'Sophia',
+            rollNum: 'EZ24AQG01',
+            section: 'CSE-7',
+            accountType: 'Member',
+            contact: 'XXXXX XXXXX',
+            rank: 1,
+            marks: '289/300'
+        },
+        {
+            id: 102,
+            name: 'Sophia',
+            rollNum: 'EZ24AQG01',
+            section: 'CSE-7',
+            accountType: 'Member',
+            contact: 'XXXXX XXXXX',
+            rank: 1,
+            marks: '289/300'
+        },
+        {
+            id: 103,
+            name: 'Sophia',
+            rollNum: 'EZ24AQG01',
+            section: 'CSE-7',
+            accountType: 'Member',
+            contact: 'XXXXX XXXXX',
+            rank: 1,
+            marks: '289/300'
+        }
+    ];
+
+    // Function to render assignments
+    function renderAssignments() {
+        const assignmentsList = document.getElementById('assignments-list');
+        assignmentsList.innerHTML = '';
+
+        assignments.forEach(assignment => {
+            const row = document.createElement('div');
+            row.className = 'table-row';
+            
+            row.innerHTML = `
+                <div class="col">
+                    <div class="checkbox" data-id="${assignment.id}"></div>
+                </div>
+                <div class="col">
+                    <div class="edit-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="date-col">
+                        <div class="date">${assignment.startDate}</div>
+                        <div class="time">${assignment.startTime}</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="date-col">
+                        <div class="date">${assignment.deadline}</div>
+                        <div class="time">${assignment.deadlineTime}</div>
+                    </div>
+                </div>
+                <div class="col title-col">${assignment.title}</div>
+                <div class="col attachment-col">
+                    ${assignment.attachments > 0 ? assignment.attachments : '0'} 
+                    <i class="fas fa-paperclip ${assignment.attachments > 0 ? 'has-attachment' : ''}"></i>
+                </div>
+                <div class="col">
+                    <div class="message-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="delete-btn">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            `;
+            
+            assignmentsList.appendChild(row);
+        });
+
+        // Add event listeners to checkboxes
+        document.querySelectorAll('.checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
+                if (this.classList.contains('checked')) {
+                    this.innerHTML = '<i class="fas fa-check"></i>';
+                    this.style.backgroundColor = '#2196f3';
+                    this.style.borderColor = '#2196f3';
+                    this.style.color = 'white';
+                } else {
+                    this.innerHTML = '';
+                    this.style.backgroundColor = 'transparent';
+                    this.style.borderColor = '#ddd';
+                }
+            });
+        });
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.message-btn, .delete-btn, .edit-icon').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Simple animation for button click
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    }
+
+    // Function to render students
+    function renderStudents() {
+        const studentsList = document.getElementById('students-list');
+        studentsList.innerHTML = '';
+
+        students.forEach(student => {
+            const row = document.createElement('div');
+            row.className = 'student-row';
+            
+            row.innerHTML = `
+                <div class="st-col small">${student.id}</div>
+                <div class="st-col">
+                    <div class="student-info">
+                        <div class="student-img">
+                            <img src="https://via.placeholder.com/35" alt="Student">
+                        </div>
+                        <div class="student-name">${student.name}</div>
+                    </div>
+                </div>
+                <div class="st-col">${student.rollNum}</div>
+                <div class="st-col">${student.section}</div>
+                <div class="st-col">${student.accountType}</div>
+                <div class="st-col">${student.contact}</div>
+                <div class="st-col small">${student.rank}</div>
+                <div class="st-col small">${student.marks}</div>
+                <div class="st-col small">
+                    <div class="action-icons">
+                        <div class="action-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="action-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            studentsList.appendChild(row);
+        });
+
+        // Add event listeners to action icons
+        document.querySelectorAll('.action-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Simple animation for icon click
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    }
+
+    // Initialize the page
+    renderAssignments();
+    renderStudents();
+
+    // Add event listener to Add New button
+    document.querySelector('.add-new-btn').addEventListener('click', function() {
+        alert('Add new assignment feature will be implemented here.');
+    });
+
+    // Add event listeners to navigation items
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.nav-item').forEach(i => {
+                i.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    // Make filter dropdown work
+    document.querySelector('.table-header .col.filter').addEventListener('click', function() {
+        alert('Filter dropdown will be implemented here.');
+    });
+
+    // Make students filter dropdown work
+    document.querySelector('.students-filter').addEventListener('click', function() {
+        alert('Class filter dropdown will be implemented here.');
+    });
+
+    // Make main search functional
+    document.querySelector('.search-container input').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        // Filter assignments
+        document.querySelectorAll('.table-row').forEach(row => {
+            const title = row.querySelector('.title-col').textContent.toLowerCase();
+            if (title.includes(searchTerm)) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Make students search functional
+    document.querySelector('.students-search input').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        // Filter students
+        document.querySelectorAll('.student-row').forEach(row => {
+            const name = row.querySelector('.student-name').textContent.toLowerCase();
+            const rollNum = row.querySelectorAll('.st-col')[2].textContent.toLowerCase();
+            
+            if (name.includes(searchTerm) || rollNum.includes(searchTerm)) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

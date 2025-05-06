@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            background: #183b66;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar img {
+            width: 80px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .sidebar h3 {
+            text-align: center;
+        }
+        .nav-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ffffff22;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-item:hover {
+            background: #ffffff44;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .tabs {
+            display: flex;
+            background: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .tab.active {
+            background: #183b66;
+            color: white;
+        }
+        .assignments {
+            margin-top: 20px;
+        }
+        .assignment-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+        .resubmit {
+            margin-top: 10px;
+        }
+        a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="user.png" alt="User">
+        <h3>Shruti Keshri</h3>
+        <p style='text-align: center'>230862</p>
+        <a href="student.html"><div class="nav-item">🏠 Dashboard</div></a>
+        <a href="course.html"><div class="nav-item">📚 Courses</div></a>
+        <a href="assignment.html"><div class="nav-item">📝 Assignments</div></a>
+        <a href="studentcalender.html"><div class="nav-item">📅 Calendar</div></a>
+        <a href="stream.html"><div class="nav-item">💬 Stream</div></a>
+        <a href="help.html"><div class="nav-item">❓ Help</div></a>
+        <a href="login.html"><div class="nav-item" style="color: red;">Logout</div></div></a>
+    </div>
+    
+    <div class="content">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('assigned')">Assigned</div>
+            <div class="tab" onclick="switchTab('missing')">Missing</div>
+            <div class="tab" onclick="switchTab('done')">Done</div>
+        </div>
+
+        <div id="assigned" class="assignments">
+            <div class="assignment-item">Assignment-2 (Due Today, 11:59 PM)
+                <input type="file" class="resubmit" id="file-assignment-2">
+                <button class="resubmit" onclick="resubmitAssignment('assignment-2')">Resubmit</button>
+            </div>
+            <div class="assignment-item">Colab Notebook Iris (Due Feb 26, 11:59 PM)
+                <input type="file" class="resubmit" id="file-assignment-iris">
+                <button class="resubmit" onclick="resubmitAssignment('assignment-iris')">Resubmit</button>
+            </div>
+            <div class="assignment-item">Project Report (Due Mar 1, 11:59 PM)
+                <input type="file" class="resubmit" id="file-project-report">
+                <button class="resubmit" onclick="resubmitAssignment('project-report')">Resubmit</button>
+            </div>
+        </div>
+        <div id="missing" class="assignments" style="display: none;">
+            <div class="assignment-item">No missing assignments</div>
+        </div>
+        <div id="done" class="assignments" style="display: none;">
+            <div class="assignment-item">Software Engineering Report (Submitted)</div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.assignments').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(tab).style.display = 'block';
+            
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function resubmitAssignment(id) {
+            const fileInput = document.getElementById(`file-${id}`);
+            if (fileInput.files.length > 0) {
+                alert(`Resubmitting ${fileInput.files[0].name} for ${id}`);
+            } else {
+                alert("Please select a file before resubmitting.");
+            }
+        }
+    </script>
+</body>
+</html>
