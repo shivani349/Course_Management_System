@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            text-align: center;
+        }
+        .container { width: 50%; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; display: block; }
+
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar img {
+            width: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .sidebar h3 {
+            margin-top: 10px;
+        }
+        .nav-item {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            background: #34495e;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .nav-item:hover {
+            background: #1abc9c;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            /* background: #fffaf0; */
+            background: #f4f6f9;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        button {
+            background:#2c3e50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 10%;
+        }
+        button:hover {
+            background: #1abc9c;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px; /* Adjust based on your layout */
+            margin: auto;
+        }
+        .card {
+            flex: 1;
+            width: 55%; /* Adjust width for 2 cards per row */
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h3 {
+            margin-bottom: 10px;
+        }
+        .icon {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .modal-content input {
+            width: 100%;
+            margin: 5px 0;
+            padding: 5px;
+        }
+        
+    </style>
+    <body>
+    <div class="sidebar">
+        <img src="user.png" alt="User">
+        <h3>Admin</h3>
+        <div class="nav-item" onclick="switchPage('admin')" ><a href="admin.html" style="text-decoration: none; color: white">Dashboard</a></div>
+        <div class="nav-item" onclick="switchPage('teachers')" ><a href="adminteacher.html" style="text-decoration: none; color: white">Teachers</a></div>
+        <div class="nav-item" onclick="switchPage('students')"><a href="adminstudent.html" style="text-decoration: none; color: white">Students</a></div>
+        <div class="nav-item" onclick="switchPage('attendance')"><a href="adminattendance.html" style="text-decoration: none; color: white">Attendance</a></div>
+        <div class="nav-item" onclick="switchPage('fee')"><a href="adminfees.html" style="text-decoration: none; color: white">Fee</a></div>
+        <div class="nav-item" onclick="switchPage('calendar')"><a href="admincalender.html" style="text-decoration: none; color: white">Calendar</a></div>
+        <div class="nav-item" onclick="switchPage('notice')" ><a href="adminnotice.html" style="text-decoration: none; color: white">Notice</a></div>
+    </div>
+    
+    <div id="teacherDashboard" class="content active">
+        <!-- <h2>Teacher Dashboard</h2> -->
+        
+        <div class="cards">
+            <div class="card" style="background: #d9eaff;">
+                <!-- <h3>Total Teachers</h3> -->
+                <button onclick="showPage('viewTeachers')">View All Students</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #d4fcd4;">
+                <!-- <h3>Total Students</h3> -->
+                <button onclick="showPage('addTeacher')">Add Student</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #f9ffcc;">
+                <!-- <h3>Fee / Salary</h3> -->
+                 <button onclick="showPage('approveTeacher')">Results</button>
+                <div class="icon">&#128065;</div>
+            </div>
+            <div class="card" style="background: #ffcce6;">
+                <!-- <h3>Fee / Salary</h3> -->
+                 <button onclick="showPage('viewSalary')">View Student Fee</button>
+                <div class="icon">&#8377;</div>
+            </div>
+        </div>  
+    </div>
+
+    <div id="viewTeachers" class="content">
+        <h2>View Students</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Course</th>
+                <th>Batch</th>
+                <th>Grade</th>
+                <th>Fee</th>
+                <th>Action</th>
+            </tr>
+            <!-- Student rows will be dynamically generated here -->
+        </table>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Student</h2>
+            <input type="hidden" id="editId">
+            <label>Name:</label>
+            <input type="text" id="editName"><br>
+            <label>Mobile:</label>
+            <input type="text" id="editMobile"><br>
+            <label>Course:</label>
+            <input type="text" id="editCourse"><br>
+            <label>Grade:</label>
+            <input type="text" id="editGrade"><br>
+            <label>Fee Status:</label>
+            <input type="text" id="editFee"><br><br>
+            <button onclick="saveEditedStudent()">Save</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+    
+    
+    
+    <div id="addTeacher" class="content">
+        <div class="container">
+            <h2>Add New Student</h2>
+            <input type="text" placeholder="First Name">
+            <input type="text" placeholder="Last Name">
+            <input type="text" placeholder="User ID">
+            <input type="password" placeholder="Password">
+            <input type="text" placeholder="Mobile">
+            <input type="text" placeholder="Course">
+            <input type="text" placeholder="Email">
+            <button class="addstudent-btn" onclick="addStudent()">Add Student</button>
+        </div>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    <div id="approveTeacher" class="content">
+        <h2>Student Result</h2>
+        <br><br>
+        <table id="result-table">
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>Grade</th></tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+        </table>
+        <br><br>
+        <button class="generate-btn" onclick="generateReport()">Generate Report</button>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')">Return</button>
+    </div>
+    
+    <div id="viewSalary" class="content">
+        <h2>Student Fee</h2>
+        <br><br>
+        <table id="fee-table">
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>Fee</th><th>Fee Detail</th></tr>
+            </thead>
+            <tbody id="fee-body"></tbody>
+        </table>        
+        <br><br>
+        <button class="notify-btn" onclick="notify()">Notify</button>
+        <br><br>
+        <button onclick="showPage('teacherDashboard')" >Return</button>
+    </div>
+
+    <script>
+        let studentsList = [];
+        window.onload = () => {
+            studentsList = JSON.parse(localStorage.getItem("studentsList")) || [];
+            // continue with rendering...
+          };
+
+        // Load students from localStorage
+        function loadStudentsFromStorage() {
+            const data = localStorage.getItem("studentsList");
+            if (data) {
+                studentsList = JSON.parse(data);
+                if (studentsList.length > 0) {
+                    studentIdCounter = Math.max(...studentsList.map(s => s.id)) + 1;
+                }
+            }
+        }
+    
+        // Save students to localStorage
+        function saveStudentsToStorage() {
+            localStorage.setItem("studentsList", JSON.stringify(studentsList));
+        }
+    
+        // Add new student
+        function addStudent() {
+            const inputs = document.querySelectorAll("#addTeacher input");
+            const student = {
+                id: studentIdCounter++,
+                name: `${inputs[0].value} ${inputs[1].value}`,
+                userId: inputs[2].value,
+                password: inputs[3].value,
+                mobile: inputs[4].value,
+                course: inputs[5].value,
+                email: inputs[6].value,
+                grade: "-",
+                fee: "Pending"
+            };
+            studentsList.push(student);
+            saveStudentsToStorage();
+            alert("Student added successfully!");
+            inputs.forEach(input => input.value = "");
+        }
+    
+        // Display students in table
+        function renderStudentTable() {
+            const table = document.querySelector("#viewTeachers table");
+            const existingRows = table.querySelectorAll("tr:not(:first-child)");
+            existingRows.forEach(row => row.remove());
+    
+            studentsList.forEach((s, index) => {
+                const row = table.insertRow();
+                row.innerHTML = `
+                    <td>${s.id}</td>
+                    <td>${s.name}</td>
+                    <td>${s.mobile}</td>
+                    <td>${s.course}</td>
+                    <td>Batch-${(index % 3) + 1}</td>
+                    <td>${s.grade}</td>
+                    <td>${s.fee}</td>
+                    <td>
+                        <button onclick="editStudent(${s.id})">Edit</button>
+                        <button onclick="deleteStudent(${s.id})">Delete</button>
+                    </td>
+                `;
+            });
+        }
+    
+        // Show a specific section
+        function showPage(id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (id === 'viewTeachers') renderStudentTable();
+            if (id === 'approveTeacher') renderResults();
+            if (id === 'viewSalary') renderFees();
+        }
+    
+        // Edit student
+        function editStudent(id) {
+            const student = studentsList.find(s => s.id === id);
+            if (student) {
+                document.getElementById("editId").value = id;
+                document.getElementById("editName").value = student.name;
+                document.getElementById("editMobile").value = student.mobile;
+                document.getElementById("editCourse").value = student.course;
+                document.getElementById("editGrade").value = student.grade;
+                document.getElementById("editFee").value = student.fee;
+                document.getElementById("editModal").style.display = "flex";
+            }
+        }
+    
+        function closeModal() {
+            document.getElementById("editModal").style.display = "none";
+        }
+    
+        function saveEditedStudent() {
+            const id = parseInt(document.getElementById("editId").value);
+            const student = studentsList.find(s => s.id === id);
+            if (student) {
+                student.name = document.getElementById("editName").value;
+                student.mobile = document.getElementById("editMobile").value;
+                student.course = document.getElementById("editCourse").value;
+                student.grade = document.getElementById("editGrade").value;
+                student.fee = document.getElementById("editFee").value;
+                saveStudentsToStorage();
+                renderStudentTable();
+                closeModal();
+            }
+        }
+    
+        function deleteStudent(id) {
+            studentsList = studentsList.filter(s => s.id !== id);
+            saveStudentsToStorage();
+            renderStudentTable();
+        }
+    
+        function renderResults() {
+            const tbody = document.getElementById("result-body");
+            tbody.innerHTML = "";
+            studentsList.forEach(s => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${s.id}</td><td>${s.name}</td><td>${s.grade}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+    
+        function generateReport() {
+            alert("Student results have been generated successfully.");
+        }
+    
+        function renderFees() {
+            const tbody = document.getElementById("fee-body");
+            tbody.innerHTML = "";
+            studentsList.forEach(s => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${s.id}</td><td>${s.name}</td><td>${s.fee}</td><td><button onclick="alert('Fee details for ${s.name}')">Detail</button></td>`;
+                tbody.appendChild(row);
+            });
+        }
+    
+        function notify() {
+            alert("Notification sent to students with pending fees.");
+        }
+    
+        // Initialize dashboard
+        window.onload = () => {
+            loadStudentsFromStorage();
+            renderStudentTable();
+        };
+    </script>
+    
+    
+</body>
+</html>

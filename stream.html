@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Stream</title>
+    <link rel="stylesheet" href="stream.css">
+    <script src="stream.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+
+
+
+.container {
+            display: flex;
+            width: 100%;
+        }
+
+
+
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #1E3A5F;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.nav-item {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #345B7E;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    background-color: #527DA3;
+}
+
+.logout {
+    background-color: #D9534F;
+}
+
+.logout:hover {
+    background-color: #B52B27;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #F7F9FC;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subject-switch {
+    font-weight: bold;
+    background: #E0E0E0;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+/* Toggle Buttons */
+
+
+.toggle-buttons {
+            display: flex;
+        }
+
+
+
+.toggle-buttons button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    background-color: #E0E0E0;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.toggle-buttons .active {
+    background-color: #527DA3;
+    color: white;
+}
+
+/* Broadcast Box */
+.broadcast-box {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.broadcast-box input {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Stream Section */
+.stream {
+    margin-top: 20px;
+}
+
+.post {
+    display: flex;
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.post i {
+    font-size: 24px;
+    color: #527DA3;
+    margin-right: 15px;
+}
+
+.post-content {
+    flex: 1;
+}
+
+.highlighted {
+    border-left: 4px solid #E57BC5;
+    padding-left: 10px;
+}
+
+.deadline {
+    color: red;
+    font-size: 14px;
+}
+
+/* Bottom Buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #527DA3;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #345B7E;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="user.png" alt="Profile Picture">
+                <h3>Shruti Keshri</h3>
+                <p>230862</p>
+            </div>
+                <a href="student.html" class="nav-item">🏠 Dashboard</a>
+                <a href="course.html" class="nav-item">📚 Courses</a>
+                <a href="assignment.html" class="nav-item">📝 Assignments</a>
+                <a href="studentcalender.html" class="nav-item">📅 Calendar</a>
+                <a href="stream.html" class="nav-item">💬 Stream</a>
+                <a href="help.html" class="nav-item">❓ Help</a>
+                <a href="login.html" class="nav-item logout">🚪 Logout</a>
+            
+           
+        </aside>
+
+        <div class="main-content">
+            <header>
+                <h2>Subject</h2>
+                <div class="subject-switch">
+                    <span class="active">SE</span>
+                </div>
+                <div class="toggle-buttons">
+                    <button class="active">CLASS</button>
+                    <button>PROJECT</button>
+                </div>
+            </header>
+
+            <div class="broadcast-box">
+                <input type="text" placeholder="Write here to broadcast...">
+            </div>
+
+            <div class="stream">
+                <div class="post highlighted">
+                    <i class="fas fa-file-alt"></i>
+                    <div class="post-content">
+                        <h4>Nishtha Phutela</h4>
+                        <p>21 Feb</p>
+                        <p>Posted a new assignment: <strong>Project Report</strong></p>
+                        <span class="deadline">1 March, 11:59 PM</span>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <i class="fas fa-tasks"></i>
+                    <div class="post-content">
+                        <h4>Nishtha Phutela</h4>
+                        <p>20 Feb</p>
+                        <p>Each group needs to complete sequence diagrams before the next class/lab.</p>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <i class="fas fa-book"></i>
+                    <div class="post-content">
+                        <h4>Nishtha Phutela</h4>
+                        <p>17 Feb</p>
+                        <p>Posted a new material: <strong>ER Diagrams</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="buttons">
+                <button>Content</button>
+                <button>Assignments</button>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

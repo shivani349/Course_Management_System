@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Fee Management</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            margin: 0;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar img {
+            width: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .sidebar h3 {
+            margin-top: 10px;
+        }
+        .nav-item {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            background: #34495e;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .nav-item:hover {
+            background: #1abc9c;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            /* background: #fffaf0; */
+            background: #f4f6f9;
+        }
+        .content-container {
+            flex: 1;
+            padding: 30px;
+        }
+        .content {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background: #34495e;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .top-nav button {
+            background: #1abc9c;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .top-nav button:hover {
+            background: #16a085;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="user.jpg" alt="User">
+        <h3>Admin</h3>
+        <div class="nav-item" onclick="switchPage('admin')" ><a href="admin.html" style="text-decoration: none; color: white">Dashboard</a></div>
+        <div class="nav-item" onclick="switchPage('teachers')" ><a href="adminteacher.html" style="text-decoration: none; color: white">Teachers</a></div>
+        <div class="nav-item" onclick="switchPage('students')"><a href="adminstudent.html" style="text-decoration: none; color: white">Students</a></div>
+        <div class="nav-item" onclick="switchPage('attendance')"><a href="adminattendance.html" style="text-decoration: none; color: white">Attendance</a></div>
+        <div class="nav-item" onclick="switchPage('fee')"><a href="adminfees.html" style="text-decoration: none; color: white">Fee</a></div>
+        <div class="nav-item" onclick="switchPage('calendar')"><a href="admincalender.html" style="text-decoration: none; color: white">Calendar</a></div>
+        <div class="nav-item" onclick="switchPage('notice')" ><a href="adminnotice.html" style="text-decoration: none; color: white">Notice</a></div>
+    </div>
+    
+    <div id="feeList" class="content active">
+        <h2>Fee Records</h2>
+        <table id="feeTable">
+            <tr>
+                <th>Batch</th>
+                <th>View Dues</th>
+            </tr>
+            <tr>
+                <td>2020-2024</td>
+                <td><button onclick="viewFee('2020-2024')">🔴</button></td>
+            </tr>
+            <tr>
+                <td>2021-2025</td>
+                <td><button onclick="viewFee('2021-2025')">🔴</button></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div id="viewFee" class="content">
+        <h2>Fee Details</h2>
+        <label for="search">Search Name:</label>
+        <input type="text" id="search">
+        <label for="date">Date:</label>
+        <input type="date" id="date">
+        <br>
+        <br>
+        <table>
+            <tr>
+                <th>Enrollment No</th>
+                <th>Name</th>
+                <th>Due</th>
+                <th>Total Fee</th>
+                <th>Paid</th>
+                <th>Balance</th>
+            </tr>
+            <tr>
+                <td>12345</td>
+                <td>John Doe</td>
+                <td>5000</td>
+                <td>20000</td>
+                <td>15000</td>
+                <td>5000</td>
+            </tr>
+        </table>
+        <br><br>
+        <button class="top-nav" style="color: white;" onclick="updateFee()">Update</button>
+        <button class="top-nav" style="color: white;" onclick="notifyStudent()">Notify</button>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.content').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function viewFee(batch) {
+            // alert("Viewing fee details for " + batch);
+            showPage('viewFee');
+        }
+
+        function updateFee() {
+            alert("Fee details updated successfully!");
+        }
+
+        function notifyStudent() {
+            alert("Student notified about pending dues.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Course Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f5f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: #6e6b6b;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+            color: white;
+        }
+        .login-container h2 {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .role-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .role-options button {
+            background-color: #d99b9b;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .role-options button:hover {
+            background-color: #c47c7c;
+        }
+        .btn {
+            width: 100%;
+            background-color: #d99b9b;
+            color: white;
+            padding: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #c47c7c;
+        }
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 0.9em;
+            text-align: right;
+        }
+        .forgot-password a {
+            color: white;
+            text-decoration: none;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>WELCOME!</h2>
+        <p>Please login to continue</p>
+        
+        <div class="role-options">
+            <button type="button" onclick="selectRole('student')">STUDENT</button>
+            <button type="button" onclick="selectRole('admin')">ADMIN</button>
+            <button type="button" onclick="selectRole('faculty')">FACULTY</button>
+        </div>
+
+        <form id="loginForm" onsubmit="redirectToDashboard(event)">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="forgot-password">
+                <a href="forget.html">Forgot your password?</a>
+            </div>
+           
+            <button type="submit" class="btn">LOGIN</button>
+        </form>
+    </div>
+
+    <script>
+        let selectedRole = '';
+        
+        function selectRole(role) {
+            selectedRole = role;
+        }
+
+        function redirectToDashboard(event) {
+            event.preventDefault(); 
+            
+            if (!selectedRole) {
+                alert('Please select a role before logging in.');
+                return;
+            }
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+      
+            const users = {
+                student: { username: 'student', password: '1234', redirect: 'student.html' },
+                admin: { username: 'admin', password: 'admin123', redirect: 'admin.html' },
+                faculty: { username: 'faculty', password: 'faculty123', redirect: 'teacher.html' }
+            };
+            
+            if (users[selectedRole] && users[selectedRole].username === username && users[selectedRole].password === password) {
+                window.location.href = users[selectedRole].redirect;
+            } else {
+                alert('Invalid credentials for ' + selectedRole);
+            }
+        }
+    </script>
+</body>
+</html>
