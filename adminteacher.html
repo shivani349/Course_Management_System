@@ -274,34 +274,83 @@
         });
     }
 
-    function loadApproveTable() {
-        const table = document.getElementById("approveTable");
-        const teachers = getTeachers();
-        table.innerHTML = `
-            <tr>
-                <th>Id</th><th>Name</th><th>Mobile</th><th>Course</th><th>Update</th><th>Delete</th>
-            </tr>`;
-        teachers.forEach(t => {
-            table.innerHTML += `
-                <tr>
-                    <td>${t.id}</td><td>${t.name}</td><td>${t.mobile}</td><td>${t.course}</td>
-                    <td><button onclick="updateSalary(${t.id})">✏</button></td>
-                    <td><button onclick="deleteTeacher(${t.id})">🗑</button></td>
-                </tr>`;
-        });
-    }
+    
+let editingId = null; // global variable
 
-    function updateSalary(id) {
-        const teachers = getTeachers();
-        const t = teachers.find(t => t.id === id);
-        const newSalary = prompt("Enter new salary for " + t.name + ":", t.salary);
-        if (newSalary !== null) {
-            t.salary = newSalary;
-            saveTeachers(teachers);
-            loadApproveTable();
-            loadSalaryTable();
+function loadApproveTable() {
+    const table = document.getElementById("approveTable");
+    const teachers = getTeachers();
+    table.innerHTML = `
+        <tr>
+            <th>Id</th><th>Name</th><th>Mobile</th><th>Course</th><th>Salary</th><th>Actions</th>
+        </tr>`;
+
+    teachers.forEach(t => {
+        if (editingId === t.id) {
+            table.innerHTML += `
+            <tr>
+                <td>${t.id}</td>
+                <td><input id="editName" value="${t.name}"></td>
+                <td><input id="editMobile" value="${t.mobile}"></td>
+                <td><input id="editCourse" value="${t.course}"></td>
+                <td><input id="editSalary" value="${t.salary}"></td>
+                <td>
+                    <button onclick="saveTeacherUpdate('${t.id}')">💾 Save</button>
+                    <button onclick="cancelEdit()">❌ Cancel</button>
+                </td>
+            </tr>`;
+        } else {
+            table.innerHTML += `
+            <tr>
+                <td>${t.id}</td>
+                <td>${t.name}</td>
+                <td>${t.mobile}</td>
+                <td>${t.course}</td>
+                <td>${t.salary}</td>
+                <td>
+                    <button onclick="editTeacher('${t.id}')">✏ Edit</button>
+                    <button onclick="deleteTeacher('${t.id}')">🗑 Delete</button>
+                </td>
+            </tr>`;
         }
+    });
+}
+
+function editTeacher(id) {
+    editingId = id;
+    loadApproveTable(); // re-render to show editable row
+}
+
+function cancelEdit() {
+    editingId = null;
+    loadApproveTable(); // re-render normal view
+}
+
+function saveTeacherUpdate(id) {
+    const teachers = getTeachers();
+    const t = teachers.find(t => t.id === id);
+
+    const newName = document.getElementById("editName").value.trim();
+    const newMobile = document.getElementById("editMobile").value.trim();
+    const newCourse = document.getElementById("editCourse").value.trim();
+    const newSalary = document.getElementById("editSalary").value.trim();
+
+    if (newName && newMobile && newCourse && newSalary) {
+        t.name = newName;
+        t.mobile = newMobile;
+        t.course = newCourse;
+        t.salary = newSalary;
+
+        saveTeachers(teachers);
+        editingId = null;
+        alert("Teacher updated successfully!");
+        loadApproveTable();
+        loadTeacherTable();
+        loadSalaryTable();
+    } else {
+        alert("All fields are required!");
     }
+}
 
     function deleteTeacher(id) {
         let teachers = getTeachers();
