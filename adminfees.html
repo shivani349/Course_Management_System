@@ -46,7 +46,6 @@
         .content {
             flex: 1;
             padding: 20px;
-            /* background: #fffaf0; */
             background: #f4f6f9;
         }
         .content-container {
@@ -94,6 +93,39 @@
         .form-group {
             margin-bottom: 10px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +167,7 @@
         <input type="date" id="date">
         <br>
         <br>
-        <table>
+        <table id="feeDetailsTable">
             <tr>
                 <th>Enrollment No</th>
                 <th>Name</th>
@@ -144,21 +176,53 @@
                 <th>Paid</th>
                 <th>Balance</th>
             </tr>
-            <tr>
-                <td>12345</td>
-                <td>John Doe</td>
-                <td>5000</td>
-                <td>20000</td>
-                <td>15000</td>
-                <td>5000</td>
-            </tr>
+            <!-- Data will be dynamically added here -->
         </table>
         <br><br>
         <button class="top-nav" style="color: white;" onclick="updateFee()">Update</button>
         <button class="top-nav" style="color: white;" onclick="notifyStudent()">Notify</button>
+        <button class="top-nav" style="color: white;" onclick="openAddModal()">Add</button>
+    </div>
+
+    <!-- Modal for Adding New Fee Details -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span onclick="closeAddModal()" style="color: red; font-size: 20px; cursor: pointer;">&times;</span>
+                <h2>Add Student Fee Details</h2>
+            </div>
+            <div class="modal-body">
+                <label for="enrollmentNo">Enrollment No:</label>
+                <input type="text" id="enrollmentNo" class="form-group"><br>
+                <label for="studentName">Name:</label>
+                <input type="text" id="studentName" class="form-group"><br>
+                <label for="totalFee">Total Fee:</label>
+                <input type="number" id="totalFee" class="form-group"><br>
+                <label for="paidAmount">Paid:</label>
+                <input type="number" id="paidAmount" class="form-group"><br>
+            </div>
+            <div class="modal-footer">
+                <button onclick="addFee()">Add Fee</button>
+                <button onclick="closeAddModal()">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Initialize sample fee data if not already present
+        const defaultFeeData = {
+            "2020-2024": [
+                { enrollment: "12345", name: "John Doe", total: 20000, paid: 15000 }
+            ],
+            "2021-2025": [
+                { enrollment: "67890", name: "Jane Smith", total: 18000, paid: 15000 }
+            ]
+        };
+
+        if (!localStorage.getItem("feeData")) {
+            localStorage.setItem("feeData", JSON.stringify(defaultFeeData));
+        }
+
         function showPage(pageId) {
             document.querySelectorAll('.content').forEach(page => {
                 page.classList.remove('active');
@@ -167,16 +231,102 @@
         }
 
         function viewFee(batch) {
-            // alert("Viewing fee details for " + batch);
             showPage('viewFee');
+
+            const feeData = JSON.parse(localStorage.getItem("feeData")) || {};
+            const students = feeData[batch] || [];
+
+            const table = document.querySelector("#feeDetailsTable");
+            table.innerHTML = `
+                <tr>
+                    <th>Enrollment No</th>
+                    <th>Name</th>
+                    <th>Due</th>
+                    <th>Total Fee</th>
+                    <th>Paid</th>
+                    <th>Balance</th>
+                </tr>
+            `;
+
+            students.forEach(student => {
+                const balance = student.total - student.paid;
+                const due = student.total - student.paid;
+                table.innerHTML += `
+                    <tr>
+                        <td>${student.enrollment}</td>
+                        <td>${student.name}</td>
+                        <td>${due}</td>
+                        <td>${student.total}</td>
+                        <td>${student.paid}</td>
+                        <td>${balance}</td>
+                    </tr>
+                `;
+            });
         }
 
         function updateFee() {
+            const feeData = JSON.parse(localStorage.getItem("feeData"));
+
+            if (feeData["2020-2024"]) {
+                feeData["2020-2024"][0].paid += 1000;
+                feeData["2020-2024"][0].total -= 1000;
+            }
+
+            localStorage.setItem("feeData", JSON.stringify(feeData));
             alert("Fee details updated successfully!");
+            viewFee("2020-2024");
         }
 
         function notifyStudent() {
             alert("Student notified about pending dues.");
+        }
+
+        document.getElementById("search").addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#viewFee table tr");
+
+            rows.forEach((row, index) => {
+                if (index === 0) return; // Skip header
+                const nameCell = row.cells[1];
+                const name = nameCell.textContent.toLowerCase();
+                row.style.display = name.includes(searchTerm) ? "" : "none";
+            });
+        });
+
+        // Modal functionality
+        function openAddModal() {
+            document.getElementById("addModal").style.display = "block";
+        }
+
+        function closeAddModal() {
+            document.getElementById("addModal").style.display = "none";
+        }
+
+        function addFee() {
+            const enrollment = document.getElementById("enrollmentNo").value;
+            const name = document.getElementById("studentName").value;
+            const total = parseFloat(document.getElementById("totalFee").value);
+            const paid = parseFloat(document.getElementById("paidAmount").value);
+
+            if (!enrollment || !name || isNaN(total) || isNaN(paid)) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            const feeData = JSON.parse(localStorage.getItem("feeData"));
+            if (!feeData["2020-2024"]) feeData["2020-2024"] = [];
+
+            feeData["2020-2024"].push({
+                enrollment,
+                name,
+                total,
+                paid
+            });
+
+            localStorage.setItem("feeData", JSON.stringify(feeData));
+            closeAddModal();
+            alert("Fee details added successfully!");
+            viewFee("2020-2024");
         }
     </script>
 </body>
